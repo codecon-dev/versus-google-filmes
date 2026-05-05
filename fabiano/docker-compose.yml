@@ -1,0 +1,41 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/filmes
+      DATA_DIR: /data
+      NODE_ENV: production
+    volumes:
+      - ./database_filmes:/data:ro
+    depends_on:
+      mongo:
+        condition: service_healthy
+    expose:
+      - "3001"
+
+  web:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "8443:443"
+    depends_on:
+      - api
+
+volumes:
+  mongo_data:
