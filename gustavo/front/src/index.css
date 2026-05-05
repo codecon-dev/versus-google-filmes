@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cinefarejo — cinematic editorial */
+    --background: 30 12% 6%;
+    --foreground: 38 30% 92%;
+
+    --card: 30 14% 9%;
+    --card-foreground: 38 30% 92%;
+
+    --popover: 30 14% 9%;
+    --popover-foreground: 38 30% 92%;
+
+    --primary: 38 75% 58%;
+    --primary-foreground: 30 20% 8%;
+
+    --secondary: 30 10% 14%;
+    --secondary-foreground: 38 30% 92%;
+
+    --muted: 30 8% 16%;
+    --muted-foreground: 35 12% 62%;
+
+    --accent: 14 70% 52%;
+    --accent-foreground: 38 30% 96%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 38 30% 96%;
+
+    --border: 30 12% 18%;
+    --input: 30 12% 14%;
+    --ring: 38 75% 58%;
+
+    --radius: 0.25rem;
+
+    /* Cinematic tokens */
+    --gold: 38 75% 58%;
+    --gold-deep: 35 60% 42%;
+    --crimson: 14 70% 52%;
+    --ink: 30 14% 5%;
+
+    --gradient-spotlight: radial-gradient(ellipse at top, hsl(38 75% 58% / 0.18), transparent 60%);
+    --gradient-poster: linear-gradient(135deg, hsl(14 60% 30%) 0%, hsl(30 20% 10%) 50%, hsl(38 50% 25%) 100%);
+    --gradient-film: linear-gradient(180deg, transparent 0%, hsl(var(--ink) / 0.95) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 80% 65%), hsl(35 70% 45%));
+
+    --shadow-cinema: 0 30px 80px -20px hsl(0 0% 0% / 0.8), 0 10px 30px -10px hsl(38 75% 58% / 0.15);
+    --shadow-poster: 0 20px 60px -15px hsl(0 0% 0% / 0.9);
+
+    --transition-cinema: cubic-bezier(0.7, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(38 75% 58% / 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 100%, hsl(14 70% 40% / 0.06), transparent);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  .gold-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
